@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Comparison Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="logo">
+        WHAT IF? <span>—</span>
+    </div>
+
+    <h1 class="page-title">
+        🏆 Comparison Result
+    </h1>
+
+    <p class="subtitle">
+        Simulation period: {{ months }} months
+    </p>
+
+
+    <div class="winner-card">
+
+        <h2>
+            🏆 Best Option
+        </h2>
+
+        <div class="winner-name">
+            {{ best_option.name }}
+        </div>
+
+        <p style="color:white;">
+            Projected savings
+        </p>
+
+        <div class="winner-money">
+
+            ₹{{ "{:,.2f}".format(best_option.value) }}
+
+        </div>
+
+        <p style="color:white;">
+
+            Risk Level:
+            <strong>
+                {{ best_option.risk }}
+            </strong>
+
+        </p>
+
+    </div>
+
+
+    <div class="card comparison-table-card">
+
+        <table class="comparison-table">
+
+            <tr>
+
+                <th>
+                    Rank
+                </th>
+
+                <th>
+                    Option
+                </th>
+
+                <th>
+                    Cost
+                </th>
+
+                <th>
+                    Projected Savings
+                </th>
+
+                <th>
+                    Risk
+                </th>
+
+            </tr>
+
+
+            {% for option in options %}
+
+            <tr>
+
+                <td>
+                    {% if loop.index == 1 %}
+                        🥇
+                    {% elif loop.index == 2 %}
+                        🥈
+                    {% else %}
+                        🥉
+                    {% endif %}
+                </td>
+
+                <td>
+                    <strong>
+                        {{ option.name }}
+                    </strong>
+                </td>
+
+                <td>
+                    ₹{{ "{:,.0f}".format(option.cost) }}
+                </td>
+
+                <td>
+                    ₹{{ "{:,.2f}".format(option.value) }}
+                </td>
+
+                <td>
+                    {{ option.risk }}
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
+
+    <div class="home-links">
+
+        <a
+            href="/compare"
+            class="nav-button">
+
+            🔄 Compare Again
+
+        </a>
+
+        <a
+            href="/history"
+            class="nav-button">
+
+            📊 History
+
+        </a>
+
+        <a
+            href="/"
+            class="nav-button">
+
+            ← Home
+
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

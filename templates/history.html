@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Simulation Result</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<div class="result-page">
+
+
+    <div class="result-header">
+
+        <div class="logo">
+            WHAT IF? <span>—</span>
+        </div>
+
+        <h1>
+            Simulation Result
+        </h1>
+
+        <div class="decision-info">
+
+            <p>
+                Decision:
+                <strong>{{ decision }}</strong>
+            </p>
+
+            <p>
+                Simulation Period:
+                <strong>{{ months }} months</strong>
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="result-card">
+
+
+        <div class="result-icon">
+            🛒
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="case-icon best-icon">
+                ↗
+            </div>
+
+            <div class="case-info">
+
+                <h2>
+                    Best Case
+                </h2>
+
+                <p>
+                    You will have
+                </p>
+
+            </div>
+
+            <div class="case-value best-value">
+
+                ₹{{ "{:,.2f}".format(results["best"]) }}
+
+            </div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="case-icon normal-icon">
+                =
+            </div>
+
+            <div class="case-info">
+
+                <h2>
+                    Normal Case
+                </h2>
+
+                <p>
+                    You will have
+                </p>
+
+            </div>
+
+            <div class="case-value normal-value">
+
+                ₹{{ "{:,.2f}".format(results["normal"]) }}
+
+            </div>
+
+        </div>
+
+
+        <div class="result-row">
+
+            <div class="case-icon worst-icon">
+                ↘
+            </div>
+
+            <div class="case-info">
+
+                <h2>
+                    Worst Case
+                </h2>
+
+                <p>
+                    You will have
+                </p>
+
+            </div>
+
+            <div class="case-value worst-value">
+
+                ₹{{ "{:,.2f}".format(results["worst"]) }}
+
+            </div>
+
+        </div>
+
+
+        <div class="risk-row">
+
+            <div class="risk-icon">
+                !
+            </div>
+
+            <div>
+
+                <h2>
+                    Risk:
+                    <span class="risk-text">
+                        {{ results["risk"] }}
+                    </span>
+                </h2>
+
+                <p>
+                    This decision carries a
+                    {{ results["risk"]|lower }}
+                    financial risk.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="action-buttons">
+
+        <a
+            href="/history"
+            class="action-button green-button">
+
+            💾 View History
+
+        </a>
+
+        <a
+            href="/compare"
+            class="action-button blue-button">
+
+            ⚖️ Compare Decision
+
+        </a>
+
+        <a
+            href="/"
+            class="action-button purple-button">
+
+            ← Back to Home
+
+        </a>
+
+    </div>
+
+
+</div>
+
+</body>
+
+</html>
