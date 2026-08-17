@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -9,788 +8,500 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1.0">
 
-<title>WHAT IF? Decision Simulator</title>
-
+<title>WHAT IF? - Decision Simulator</title>
 
 <style>
-
-/* ======================================
-   GLOBAL
-   ====================================== */
 
 * {
     box-sizing: border-box;
 }
 
-
 body {
-
     margin: 0;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    background:
-        linear-gradient(
-            135deg,
-            #eff6ff,
-            #dbeafe
-        );
-
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
     color: #111827;
 }
 
-
-a {
-    text-decoration: none;
-}
-
-
 .container {
-
     width: 92%;
-
     max-width: 1150px;
-
     margin: auto;
-
-    padding:
-        40px
-        0
-        70px;
+    padding: 40px 0 70px;
 }
-
-
-/* ======================================
-   HEADER
-   ====================================== */
 
 .logo {
-
     text-align: center;
-
     font-size: 52px;
-
     font-weight: 900;
-
     color: #2563eb;
-
     letter-spacing: 2px;
 }
 
-
 .logo span {
-
     color: #60a5fa;
 }
 
-
 .title {
-
     text-align: center;
-
     font-size: 44px;
-
-    margin:
-        8px
-        0
-        10px;
+    margin: 10px 0;
 }
-
 
 .subtitle {
-
     text-align: center;
-
     color: #475569;
-
     font-size: 18px;
+    margin-bottom: 30px;
 }
-
-
-/* ======================================
-   NAVIGATION
-   ====================================== */
 
 .nav {
-
     display: flex;
-
     justify-content: center;
-
     gap: 12px;
-
     flex-wrap: wrap;
-
-    margin:
-        25px
-        0;
+    margin: 25px 0;
 }
-
 
 .nav a {
-
-    padding:
-        12px
-        20px;
-
+    padding: 12px 20px;
     background: white;
-
     color: #2563eb;
-
+    border: 1px solid #bfdbfe;
     border-radius: 10px;
-
-    border:
-        1px solid
-        #bfdbfe;
-
     font-weight: bold;
-
-    transition: .2s;
 }
 
-
 .nav a:hover {
-
     background: #2563eb;
-
     color: white;
 }
 
-
-/* ======================================
-   CARD
-   ====================================== */
-
 .card {
-
     background: white;
-
     border-radius: 22px;
-
     padding: 30px;
-
-    margin:
-        30px
-        auto;
-
-    box-shadow:
-        0 15px 40px
-        rgba(37,99,235,.15);
-
-    border:
-        1px solid
-        #dbeafe;
+    margin: 30px auto;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 15px 40px rgba(37,99,235,0.15);
 }
 
-
-/* ======================================
-   FORM
-   ====================================== */
-
 .form-card {
-
     max-width: 750px;
 }
 
-
 .form-card h2 {
-
     text-align: center;
-
     color: #1e3a8a;
-
     margin-top: 0;
 }
 
-
 .form-group {
-
     margin-bottom: 20px;
 }
 
-
 label {
-
     display: block;
-
     font-weight: bold;
-
     margin-bottom: 7px;
 }
 
-
 input,
 select {
-
     width: 100%;
-
-    padding: 14px;
-
-    border:
-        2px solid
-        #dbeafe;
-
+    padding: 14px 16px;
+    border: 2px solid #dbeafe;
     border-radius: 10px;
-
     background: #f8fafc;
-
     color: #111827;
-
     font-size: 16px;
-
     outline: none;
 }
 
-
 input:focus,
 select:focus {
-
     border-color: #2563eb;
-
     background: white;
-
-    box-shadow:
-        0 0 0 3px
-        rgba(37,99,235,.12);
 }
 
-
 button {
-
     width: 100%;
-
     padding: 16px;
-
     border: none;
-
     border-radius: 12px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
     color: white;
-
     font-size: 18px;
-
     font-weight: bold;
-
     cursor: pointer;
 }
 
-
 button:hover {
-
     transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 25px
-        rgba(37,99,235,.3);
 }
-
-
-/* ======================================
-   RESULT HEADER
-   ====================================== */
 
 .info {
-
     text-align: center;
-
     font-size: 19px;
-
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
-
 .info strong {
-
     color: #2563eb;
 }
 
+/* FINANCIAL */
 
-/* ======================================
-   BLUE RESULT CARD
-   ====================================== */
-
-.result-card {
-
-    background:
-        linear-gradient(
-            135deg,
-            #60a5fa,
-            #2563eb
-        );
-
-    border-radius: 25px;
-
-    padding: 30px;
-
-    color: #000;
-
-    box-shadow:
-        0 20px 45px
-        rgba(37,99,235,.3);
+.finance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
 }
 
+.finance-box {
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+}
+
+.finance-box h3 {
+    margin: 0 0 8px;
+    color: #1e3a8a;
+    font-size: 15px;
+}
+
+.finance-box .value {
+    font-size: 21px;
+    font-weight: 900;
+}
+
+.expense-box {
+    background: #fee2e2;
+}
+
+.saving-box {
+    background: #dcfce7;
+}
+
+.investment-box {
+    background: #dbeafe;
+}
+
+.wants-box {
+    background: #fef3c7;
+}
+
+/* RESULT */
+
+.result-card {
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
+    border-radius: 25px;
+    padding: 30px;
+    color: #000;
+    box-shadow: 0 20px 45px rgba(37,99,235,0.3);
+}
 
 .result-icon {
-
-    font-size: 45px;
-
+    font-size: 42px;
     margin-bottom: 10px;
 }
 
-
 .result-row {
-
     display: grid;
-
-    grid-template-columns:
-        75px
-        1fr
-        auto;
-
+    grid-template-columns: 75px 1fr auto;
     align-items: center;
-
     gap: 20px;
-
-    padding:
-        22px
-        0;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.6);
+    padding: 22px 0;
+    border-top: 1px solid rgba(255,255,255,.6);
 }
 
-
 .case-icon {
-
     width: 60px;
-
     height: 60px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 30px;
-
     font-weight: bold;
 }
 
-
-.best {
-
+.best-icon {
     background: #bbf7d0;
-
     color: #15803d;
 }
 
-
-.normal {
-
+.normal-icon {
     background: #dbeafe;
-
     color: #1d4ed8;
 }
 
-
-.worst {
-
+.worst-icon {
     background: #fecaca;
-
     color: #dc2626;
 }
-
 
 .case-info h2 {
-
     margin: 0;
-
-    color: #000;
 }
-
 
 .case-info p {
-
     margin: 5px 0;
-
-    color: #111827;
 }
-
 
 .money {
-
-    padding:
-        14px
-        22px;
-
+    min-width: 190px;
+    padding: 14px 22px;
     border-radius: 12px;
-
-    font-size: 26px;
-
-    font-weight: 900;
-
-    min-width: 180px;
-
     text-align: center;
-
-    color: #000;
+    font-size: 26px;
+    font-weight: 900;
 }
 
+.best-money {
+    background: #bbf7d0;
+}
 
-/* ======================================
-   RISK
-   ====================================== */
+.normal-money {
+    background: #dbeafe;
+}
+
+.worst-money {
+    background: #fecaca;
+}
+
+/* RISK */
 
 .risk {
-
     display: flex;
-
     align-items: center;
-
     gap: 18px;
-
-    padding-top: 20px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,.6);
+    padding-top: 22px;
+    border-top: 1px solid rgba(255,255,255,.6);
 }
 
-
 .risk-icon {
-
     width: 60px;
-
     height: 60px;
-
     border-radius: 50%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     background: #fef08a;
-
     color: #dc2626;
-
     font-size: 35px;
-
     font-weight: bold;
 }
 
-
 .risk h2 {
-
     margin: 0;
-
-    color: #000;
 }
-
 
 .risk p {
-
     margin: 5px 0;
-
-    color: #111827;
 }
 
-
 .risk strong {
-
     color: #dc2626;
 }
 
-
-/* ======================================
-   RECOMMENDATION
-   ====================================== */
+/* RECOMMENDATION */
 
 .recommendation {
-
     max-width: 900px;
-
-    margin:
-        25px
-        auto;
-
-    padding: 25px;
-
+    margin: 25px auto;
+    padding: 28px;
     background: white;
-
     border-radius: 20px;
-
-    border:
-        2px solid
-        #bfdbfe;
-
-    box-shadow:
-        0 12px 30px
-        rgba(37,99,235,.15);
+    border: 2px solid #bfdbfe;
+    box-shadow: 0 12px 30px rgba(37,99,235,.15);
 }
 
-
 .recommendation h2 {
-
     margin-top: 0;
 }
 
-
 .recommendation-result {
-
     font-size: 32px;
-
     font-weight: 900;
-
-    margin:
-        10px
-        0;
 }
 
-
 .buy {
-
     color: #16a34a;
 }
 
-
 .wait {
-
     color: #d97706;
 }
 
-
-/* ======================================
-   WHY
-   ====================================== */
+/* WHY */
 
 .why {
-
     max-width: 900px;
-
-    margin:
-        25px
-        auto;
 }
 
-
 .why h2 {
-
     color: #1e3a8a;
 }
 
-
-.why p {
-
-    line-height: 1.6;
-
+.why p,
+.why li {
     color: #374151;
+    line-height: 1.6;
 }
-
 
 .why li {
-
-    margin:
-        10px
-        0;
-
-    color: #111827;
+    margin: 10px 0;
 }
 
+/* INVESTMENT */
 
-/* ======================================
-   HISTORY TABLE
-   ====================================== */
+.investment-card {
+    max-width: 900px;
+    margin: 25px auto;
+    background: linear-gradient(135deg, #ecfdf5, #dbeafe);
+    border: 2px solid #93c5fd;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 12px 30px rgba(37,99,235,.12);
+}
+
+.investment-card h2 {
+    margin-top: 0;
+    color: #1e3a8a;
+}
+
+.investment-amount {
+    font-size: 32px;
+    font-weight: 900;
+    color: #15803d;
+    margin: 10px 0;
+}
+
+.investment-category {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 1px solid #bfdbfe;
+}
+
+.investment-category h3 {
+    color: #1e3a8a;
+}
+
+.investment-category .category {
+    font-size: 20px;
+    font-weight: bold;
+    color: #15803d;
+}
+
+.disclaimer {
+    margin-top: 15px;
+    padding: 12px;
+    background: #fef3c7;
+    border-radius: 10px;
+    color: #92400e;
+    font-size: 14px;
+}
+
+/* TABLE */
 
 .table-card {
-
     overflow-x: auto;
-
     padding: 0;
 }
 
-
 table {
-
     width: 100%;
-
     border-collapse: collapse;
-
     background: white;
 }
 
-
 th {
-
-    background:
-        linear-gradient(
-            135deg,
-            #2563eb,
-            #1d4ed8
-        );
-
-    color: white;
-
     padding: 15px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: white;
 }
-
 
 td {
-
     padding: 14px;
-
     text-align: center;
-
-    border-bottom:
-        1px solid
-        #e5e7eb;
-
     color: #111827;
+    border-bottom: 1px solid #e5e7eb;
 }
 
-
 tr:hover {
-
     background: #eff6ff;
 }
 
-
-/* ======================================
-   COMPARE
-   ====================================== */
+/* COMPARE */
 
 .option {
-
     padding: 25px;
-
     background: white;
-
     border-radius: 18px;
-
     margin-bottom: 20px;
-
-    border:
-        1px solid
-        #dbeafe;
-
-    box-shadow:
-        0 10px 25px
-        rgba(37,99,235,.1);
+    border: 1px solid #dbeafe;
+    box-shadow: 0 10px 25px rgba(37,99,235,.1);
 }
-
 
 .option h2 {
-
-    color: #1d4ed8;
-
     margin-top: 0;
+    color: #1d4ed8;
 }
 
-
-/* ======================================
-   WINNER
-   ====================================== */
+/* WINNER */
 
 .winner {
-
     text-align: center;
-
     padding: 35px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #60a5fa,
-            #2563eb
-        );
-
+    background: linear-gradient(135deg, #60a5fa, #2563eb);
     border-radius: 25px;
-
     color: white;
-
-    box-shadow:
-        0 20px 40px
-        rgba(37,99,235,.25);
 }
-
-
-.winner h2 {
-
-    font-size: 30px;
-}
-
 
 .winner-name {
-
     font-size: 42px;
-
     font-weight: 900;
 }
 
-
 .winner-money {
-
     font-size: 30px;
-
     font-weight: bold;
 }
 
-
-/* ======================================
-   MOBILE
-   ====================================== */
+/* MOBILE */
 
 @media(max-width:750px) {
 
     .container {
-
         width: 94%;
     }
 
     .logo {
-
         font-size: 38px;
     }
 
     .title {
-
         font-size: 34px;
     }
 
-    .result-row {
+    .finance-grid {
+        grid-template-columns: 1fr 1fr;
+    }
 
-        grid-template-columns:
-            60px
-            1fr;
+    .result-row {
+        grid-template-columns: 60px 1fr;
     }
 
     .money {
-
         grid-column: 2;
-
         min-width: 0;
     }
-
-    .risk {
-
-        align-items: flex-start;
-    }
-
 }
 
 </style>
@@ -800,46 +511,18 @@ tr:hover {
 
 <body>
 
-
 <div class="container">
-
-
-<!-- =====================================
-     NAVIGATION
-     ===================================== -->
 
 <div class="logo">
     WHAT IF? <span>—</span>
 </div>
 
 
-{% if page != "home" %}
-
-<div class="nav">
-
-    <a href="/">
-        🏠 Home
-    </a>
-
-    <a href="/history">
-        📊 History
-    </a>
-
-    <a href="/compare">
-        ⚖️ Compare
-    </a>
-
-</div>
-
-{% endif %}
-
-
-<!-- =====================================
-     HOME
-     ===================================== -->
+<!-- =====================================================
+     HOME PAGE
+===================================================== -->
 
 {% if page == "home" %}
-
 
 <h1 class="title">
     Decision Simulator
@@ -863,13 +546,13 @@ tr:hover {
 <div class="form-group">
 
 <label>
-Decision
+    💭 Decision
 </label>
 
 <input
     type="text"
     name="decision"
-    placeholder="Example: Buy a laptop"
+    placeholder="Example: Buy a new laptop"
     required>
 
 </div>
@@ -878,13 +561,14 @@ Decision
 <div class="form-group">
 
 <label>
-Current Savings (₹)
+    💰 Monthly Salary (₹)
 </label>
 
 <input
     type="number"
-    name="savings"
+    name="salary"
     placeholder="30000"
+    min="0"
     required>
 
 </div>
@@ -893,13 +577,14 @@ Current Savings (₹)
 <div class="form-group">
 
 <label>
-Monthly Income (₹)
+    📅 How Many Months Have You Been Earning?
 </label>
 
 <input
     type="number"
-    name="income"
-    placeholder="20000"
+    name="earning_months"
+    placeholder="12"
+    min="0"
     required>
 
 </div>
@@ -908,28 +593,14 @@ Monthly Income (₹)
 <div class="form-group">
 
 <label>
-Monthly Expenses (₹)
-</label>
-
-<input
-    type="number"
-    name="expenses"
-    placeholder="10000"
-    required>
-
-</div>
-
-
-<div class="form-group">
-
-<label>
-Decision Cost (₹)
+    💸 Decision Cost (₹)
 </label>
 
 <input
     type="number"
     name="cost"
     placeholder="70000"
+    min="0"
     required>
 
 </div>
@@ -938,25 +609,75 @@ Decision Cost (₹)
 <div class="form-group">
 
 <label>
-Simulation Period
+    📊 Simulation Period
 </label>
 
-<select name="months">
+<select name="months" required>
 
 <option value="3">
-3 Months
+    3 Months
 </option>
 
-<option value="6">
-6 Months
+<option value="6" selected>
+    6 Months
 </option>
 
 <option value="12">
-12 Months
+    12 Months
 </option>
 
 <option value="24">
-24 Months
+    24 Months
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    🎯 Investment Goal
+</label>
+
+<select name="investment_goal" required>
+
+<option value="short">
+    Short Term - Less than 3 Years
+</option>
+
+<option value="medium">
+    Medium Term - 3 to 5 Years
+</option>
+
+<option value="long" selected>
+    Long Term - More than 5 Years
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    ⚠️ Investment Risk Preference
+</label>
+
+<select name="investment_risk" required>
+
+<option value="low">
+    Low Risk
+</option>
+
+<option value="medium" selected>
+    Medium Risk
+</option>
+
+<option value="high">
+    High Risk
 </option>
 
 </select>
@@ -965,9 +686,10 @@ Simulation Period
 
 
 <button type="submit">
-🚀 SIMULATE DECISION
-</button>
 
+🚀 SIMULATE DECISION
+
+</button>
 
 </form>
 
@@ -984,138 +706,244 @@ Simulation Period
 ⚖️ Compare Decisions
 </a>
 
+<a href="/investments">
+💰 Investment Plans
+</a>
+
 </div>
 
 
 {% endif %}
 
 
-<!-- =====================================
-     RESULT
-     ===================================== -->
+<!-- =====================================================
+     RESULT PAGE
+===================================================== -->
 
 {% if page == "result" %}
 
-
 <h1 class="title">
-Simulation Result
+    Simulation Result
 </h1>
 
 
 <div class="info">
 
 Decision:
-<strong>{{ decision }}</strong>
+
+<strong>
+    {{ decision }}
+</strong>
 
 &nbsp;&nbsp; | &nbsp;&nbsp;
 
-Period:
-<strong>{{ months }} months</strong>
+Simulation Period:
+
+<strong>
+    {{ months }} months
+</strong>
 
 </div>
+
+
+<!-- FINANCIAL BREAKDOWN -->
+
+<div class="card">
+
+<h2>
+    💰 Your Financial Breakdown
+</h2>
+
+
+<div class="finance-grid">
+
+
+<div class="finance-box">
+
+<h3>
+    💰 Salary
+</h3>
+
+<div class="value">
+
+₹{{ "{:,.0f}".format(results["salary"]) }}
+
+</div>
+
+</div>
+
+
+<div class="finance-box expense-box">
+
+<h3>
+    🏠 Expenses 60%
+</h3>
+
+<div class="value">
+
+₹{{ "{:,.0f}".format(results["expenses"]) }}
+
+</div>
+
+</div>
+
+
+<div class="finance-box saving-box">
+
+<h3>
+    🏦 Savings 30%
+</h3>
+
+<div class="value">
+
+₹{{ "{:,.0f}".format(results["monthly_savings"]) }}
+
+</div>
+
+</div>
+
+
+<div class="finance-box investment-box">
+
+<h3>
+    📈 Investment 10%
+</h3>
+
+<div class="value">
+
+₹{{ "{:,.0f}".format(results["investment"]) }}
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<p style="margin-top:20px;">
+
+🏦 Estimated Past Savings:
+
+<strong>
+
+₹{{ "{:,.0f}".format(results["past_savings"]) }}
+
+</strong>
+
+</p>
+
+</div>
+
+
+<!-- BUY NOW RESULT -->
+
+<div class="card">
+
+<h2>
+    🛒 BUY NOW
+</h2>
 
 
 <div class="result-card">
 
 
 <div class="result-icon">
-🛒
+    🛒
 </div>
 
 
-<!-- BEST -->
-
 <div class="result-row">
 
-<div class="case-icon best">
-↗
+<div class="case-icon best-icon">
+    ↗
 </div>
 
 <div class="case-info">
 
 <h2>
-Best Case
+    Best Case
 </h2>
 
 <p>
-You will have
+    Projected amount
 </p>
 
 </div>
 
-<div class="money best">
+<div class="money best-money">
 
-₹{{ "{:,.2f}".format(results["buy_now"]["best"]) }}
+₹{{ "{:,.2f}".format(
+    results["buy_now"]["best"]
+) }}
 
 </div>
 
 </div>
 
-
-<!-- NORMAL -->
 
 <div class="result-row">
 
-<div class="case-icon normal">
-=
+<div class="case-icon normal-icon">
+    =
 </div>
 
 <div class="case-info">
 
 <h2>
-Normal Case
+    Normal Case
 </h2>
 
 <p>
-You will have
+    Projected amount
 </p>
 
 </div>
 
-<div class="money normal">
+<div class="money normal-money">
 
-₹{{ "{:,.2f}".format(results["buy_now"]["normal"]) }}
+₹{{ "{:,.2f}".format(
+    results["buy_now"]["normal"]
+) }}
 
 </div>
 
 </div>
 
-
-<!-- WORST -->
 
 <div class="result-row">
 
-<div class="case-icon worst">
-↘
+<div class="case-icon worst-icon">
+    ↘
 </div>
 
 <div class="case-info">
 
 <h2>
-Worst Case
+    Worst Case
 </h2>
 
 <p>
-You will have
+    Projected amount
 </p>
 
 </div>
 
-<div class="money worst">
+<div class="money worst-money">
 
-₹{{ "{:,.2f}".format(results["buy_now"]["worst"]) }}
+₹{{ "{:,.2f}".format(
+    results["buy_now"]["worst"]
+) }}
 
 </div>
 
 </div>
 
-
-<!-- RISK -->
 
 <div class="risk">
 
 <div class="risk-icon">
-!
+    !
 </div>
 
 <div>
@@ -1123,6 +951,7 @@ You will have
 <h2>
 
 Risk:
+
 <strong>
 {{ results["buy_now"]["risk"] }}
 </strong>
@@ -1134,8 +963,7 @@ Risk:
 Risk Score:
 
 <strong>
-{{ results["buy_now"]["risk_score"] }}
-/ 100
+{{ results["buy_now"]["risk_score"] }}/100
 </strong>
 
 </p>
@@ -1147,13 +975,140 @@ Risk Score:
 
 </div>
 
+</div>
+
+
+<!-- WAIT RESULT -->
+
+<div class="card">
+
+<h2>
+    ⏳ WAIT
+</h2>
+
+
+<div class="result-card">
+
+
+<div class="result-row">
+
+<div class="case-icon best-icon">
+    ↗
+</div>
+
+<div class="case-info">
+
+<h2>
+    Best Case
+</h2>
+
+</div>
+
+<div class="money best-money">
+
+₹{{ "{:,.2f}".format(
+    results["wait"]["best"]
+) }}
+
+</div>
+
+</div>
+
+
+<div class="result-row">
+
+<div class="case-icon normal-icon">
+    =
+</div>
+
+<div class="case-info">
+
+<h2>
+    Normal Case
+</h2>
+
+</div>
+
+<div class="money normal-money">
+
+₹{{ "{:,.2f}".format(
+    results["wait"]["normal"]
+) }}
+
+</div>
+
+</div>
+
+
+<div class="result-row">
+
+<div class="case-icon worst-icon">
+    ↘
+</div>
+
+<div class="case-info">
+
+<h2>
+    Worst Case
+</h2>
+
+</div>
+
+<div class="money worst-money">
+
+₹{{ "{:,.2f}".format(
+    results["wait"]["worst"]
+) }}
+
+</div>
+
+</div>
+
+
+<div class="risk">
+
+<div class="risk-icon">
+    !
+</div>
+
+<div>
+
+<h2>
+
+Risk:
+
+<strong>
+{{ results["wait"]["risk"] }}
+</strong>
+
+</h2>
+
+<p>
+
+Risk Score:
+
+<strong>
+{{ results["wait"]["risk_score"] }}/100
+</strong>
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+</div>
+
 
 <!-- RECOMMENDATION -->
 
 <div class="recommendation">
 
 <h2>
-🧠 Our Recommendation
+    🧠 Our Recommendation
 </h2>
 
 
@@ -1162,13 +1117,13 @@ Risk Score:
 {% if results["recommendation"] == "BUY NOW" %}
 
 <span class="buy">
-🟢 BUY NOW
+    🟢 BUY NOW
 </span>
 
 {% else %}
 
 <span class="wait">
-🟡 WAIT
+    🟡 WAIT
 </span>
 
 {% endif %}
@@ -1177,7 +1132,8 @@ Risk Score:
 
 
 <p>
-Based on your financial situation and simulated outcomes.
+Based on your financial situation,
+simulated outcomes and calculated risk.
 </p>
 
 </div>
@@ -1188,7 +1144,7 @@ Based on your financial situation and simulated outcomes.
 <div class="card why">
 
 <h2>
-🔍 Why this recommendation?
+    🔍 Why this recommendation?
 </h2>
 
 
@@ -1202,7 +1158,7 @@ Based on your financial situation and simulated outcomes.
 {% for reason in results["reasons"] %}
 
 <li>
-{{ reason }}
+    {{ reason }}
 </li>
 
 {% endfor %}
@@ -1212,18 +1168,187 @@ Based on your financial situation and simulated outcomes.
 </div>
 
 
+<!-- INVESTMENT PLAN -->
+
+<div class="investment-card">
+
+<h2>
+    📈 Your Investment Plan
+</h2>
+
+
+<div class="investment-amount">
+
+₹{{ "{:,.0f}".format(
+    results["investment_plan"]["monthly_amount"]
+) }}
+
+<span style="font-size:18px;">
+    / month
+</span>
+
+</div>
+
+
+<p>
+
+<strong>
+    Investment Allocation:
+</strong>
+
+10% of your monthly salary
+
+</p>
+
+
+<div class="investment-category">
+
+<h3>
+    🎯 Suggested Investment Category
+</h3>
+
+
+<p class="category">
+
+{{ results["investment_plan"]["category"] }}
+
+</p>
+
+
+<h3>
+    💡 Why?
+</h3>
+
+
+<p style="line-height:1.6;">
+
+{{ results["investment_plan"]["reason"] }}
+
+</p>
+
+
+<p>
+
+<strong>
+    Goal:
+</strong>
+
+{{ results["investment_plan"]["goal"]|capitalize }}
+
+</p>
+
+
+<p>
+
+<strong>
+    Risk Preference:
+</strong>
+
+{{ results["investment_plan"]["risk"]|capitalize }}
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- QUICK INVESTMENT PLANS COMPARISON -->
+
+<div class="card" style="max-width:900px;margin:20px auto;">
+
+<h2 style="color:#1e3a8a;margin-top:0;">
+    💰 Where Your 10% Can Grow
+</h2>
+
+<p style="color:#64748b;">
+    Monthly investment: <strong>₹{{ "{:,.0f}".format(results["investment_plans"]["monthly_investment"]) }}</strong>
+    over <strong>{{ months }} months</strong>
+</p>
+
+
+<table style="width:100%;border-collapse:collapse;margin-top:15px;">
+
+<tr style="background:#2563eb;color:white;">
+
+<th style="padding:12px;text-align:left;">Plan</th>
+<th style="padding:12px;">Return</th>
+<th style="padding:12px;">Risk</th>
+<th style="padding:12px;">Invested</th>
+<th style="padding:12px;">Projected</th>
+<th style="padding:12px;">Returns</th>
+
+</tr>
+
+
+{% for plan in results["investment_plans"]["plans"] %}
+
+<tr style="border-bottom:1px solid #e5e7eb;{% if loop.first %}background:#f0fdf4;{% endif %}">
+
+<td style="padding:10px;font-weight:bold;">
+    {{ plan.name }}
+    {% if loop.first %}
+    <span style="color:#16a34a;font-size:12px;">★ BEST</span>
+    {% endif %}
+</td>
+
+<td style="padding:10px;text-align:center;">{{ plan.annual_return }}%</td>
+
+<td style="padding:10px;text-align:center;color:{% if plan.risk_level == 'Low' %}#16a34a{% elif plan.risk_level == 'Medium' %}#d97706{% else %}#dc2626{% endif %};font-weight:bold;">
+    {{ plan.risk_level }}
+</td>
+
+<td style="padding:10px;text-align:center;">₹{{ "{:,.0f}".format(plan.total_invested) }}</td>
+
+<td style="padding:10px;text-align:center;font-weight:bold;">₹{{ "{:,.0f}".format(plan.projected_value) }}</td>
+
+<td style="padding:10px;text-align:center;color:#16a34a;font-weight:bold;">
+    +₹{{ "{:,.0f}".format(plan.total_returns) }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+<div style="text-align:center;margin-top:20px;">
+
+<a href="/investments" style="display:inline-block;padding:12px 30px;background:linear-gradient(135deg,#2563eb,#1d4ed8);color:white;border-radius:10px;font-weight:bold;text-decoration:none;">
+    View Detailed Investment Plans →
+</a>
+
+</div>
+
+</div>
+
+
+<div class="disclaimer" style="max-width:900px;margin:10px auto;">
+
+⚠️ Educational projection only.
+This is not personalized financial advice
+and does not guarantee investment returns.
+
+</div>
+
+
 <div class="nav">
 
 <a href="/">
-🏠 New Simulation
+    🏠 New Simulation
 </a>
 
 <a href="/history">
-📊 History
+    📊 History
 </a>
 
 <a href="/compare">
-⚖️ Compare
+    ⚖️ Compare
+</a>
+
+<a href="/investments">
+    💰 Investments
 </a>
 
 </div>
@@ -1232,60 +1357,42 @@ Based on your financial situation and simulated outcomes.
 {% endif %}
 
 
-<!-- =====================================
-     HISTORY
-     ===================================== -->
+<!-- =====================================================
+     HISTORY PAGE
+===================================================== -->
 
 {% if page == "history" %}
 
-
 <h1 class="title">
-📊 Simulation History
+    📊 Simulation History
 </h1>
 
-
 <p class="subtitle">
-Your previous simulations
+    Your previous simulations
 </p>
 
 
 <div class="card table-card">
 
-
 {% if simulations %}
-
 
 <table>
 
 <tr>
 
-<th>
-ID
-</th>
+<th>ID</th>
 
-<th>
-Decision
-</th>
+<th>Decision</th>
 
-<th>
-Savings
-</th>
+<th>Savings</th>
 
-<th>
-Income
-</th>
+<th>Salary</th>
 
-<th>
-Expenses
-</th>
+<th>Expenses</th>
 
-<th>
-Cost
-</th>
+<th>Cost</th>
 
-<th>
-Months
-</th>
+<th>Months</th>
 
 </tr>
 
@@ -1295,31 +1402,39 @@ Months
 <tr>
 
 <td>
-{{ simulation["id"] }}
+    {{ simulation["id"] }}
 </td>
 
 <td>
-{{ simulation["decision"] }}
+    {{ simulation["decision"] }}
 </td>
 
 <td>
-₹{{ "{:,.0f}".format(simulation["savings"]) }}
+    ₹{{ "{:,.0f}".format(
+        simulation["savings"]
+    ) }}
 </td>
 
 <td>
-₹{{ "{:,.0f}".format(simulation["income"]) }}
+    ₹{{ "{:,.0f}".format(
+        simulation["income"]
+    ) }}
 </td>
 
 <td>
-₹{{ "{:,.0f}".format(simulation["expenses"]) }}
+    ₹{{ "{:,.0f}".format(
+        simulation["expenses"]
+    ) }}
 </td>
 
 <td>
-₹{{ "{:,.0f}".format(simulation["cost"]) }}
+    ₹{{ "{:,.0f}".format(
+        simulation["cost"]
+    ) }}
 </td>
 
 <td>
-{{ simulation["months"] }}
+    {{ simulation["months"] }}
 </td>
 
 </tr>
@@ -1331,20 +1446,22 @@ Months
 
 {% else %}
 
-<div style="text-align:center;padding:40px">
+<div style="
+    text-align:center;
+    padding:40px;
+">
 
 <h2>
-No simulations yet
+    No simulations yet
 </h2>
 
 <p>
-Run your first simulation.
+    Run your first simulation.
 </p>
 
 </div>
 
 {% endif %}
-
 
 </div>
 
@@ -1352,11 +1469,15 @@ Run your first simulation.
 <div class="nav">
 
 <a href="/">
-🏠 New Simulation
+    🏠 New Simulation
 </a>
 
 <a href="/compare">
-⚖️ Compare
+    ⚖️ Compare
+</a>
+
+<a href="/investments">
+    💰 Investments
 </a>
 
 </div>
@@ -1365,20 +1486,18 @@ Run your first simulation.
 {% endif %}
 
 
-<!-- =====================================
-     COMPARE
-     ===================================== -->
+<!-- =====================================================
+     COMPARE PAGE
+===================================================== -->
 
 {% if page == "compare" %}
 
-
 <h1 class="title">
-⚖️ Compare Decisions
+    ⚖️ Compare Decisions
 </h1>
 
-
 <p class="subtitle">
-Compare three choices and find the better option.
+    Compare three choices using the same financial situation.
 </p>
 
 
@@ -1388,14 +1507,13 @@ Compare three choices and find the better option.
 <div class="option">
 
 <h2>
-Option 1
+    Option 1
 </h2>
-
 
 <div class="form-group">
 
 <label>
-Decision Name
+    Decision Name
 </label>
 
 <input
@@ -1406,17 +1524,17 @@ Decision Name
 
 </div>
 
-
 <div class="form-group">
 
 <label>
-Cost (₹)
+    Cost (₹)
 </label>
 
 <input
     type="number"
     name="cost1"
     placeholder="70000"
+    min="0"
     required>
 
 </div>
@@ -1427,14 +1545,13 @@ Cost (₹)
 <div class="option">
 
 <h2>
-Option 2
+    Option 2
 </h2>
-
 
 <div class="form-group">
 
 <label>
-Decision Name
+    Decision Name
 </label>
 
 <input
@@ -1445,17 +1562,17 @@ Decision Name
 
 </div>
 
-
 <div class="form-group">
 
 <label>
-Cost (₹)
+    Cost (₹)
 </label>
 
 <input
     type="number"
     name="cost2"
     placeholder="50000"
+    min="0"
     required>
 
 </div>
@@ -1466,14 +1583,13 @@ Cost (₹)
 <div class="option">
 
 <h2>
-Option 3
+    Option 3
 </h2>
-
 
 <div class="form-group">
 
 <label>
-Decision Name
+    Decision Name
 </label>
 
 <input
@@ -1484,17 +1600,17 @@ Decision Name
 
 </div>
 
-
 <div class="form-group">
 
 <label>
-Cost (₹)
+    Cost (₹)
 </label>
 
 <input
     type="number"
     name="cost3"
     placeholder="30000"
+    min="0"
     required>
 
 </div>
@@ -1505,19 +1621,21 @@ Cost (₹)
 <div class="option">
 
 <h2>
-💰 Financial Details
+    💰 Financial Details
 </h2>
 
 
 <div class="form-group">
 
 <label>
-Current Savings
+    Monthly Salary (₹)
 </label>
 
 <input
     type="number"
-    name="savings"
+    name="salary"
+    placeholder="30000"
+    min="0"
     required>
 
 </div>
@@ -1526,12 +1644,14 @@ Current Savings
 <div class="form-group">
 
 <label>
-Monthly Income
+    Months Already Earning
 </label>
 
 <input
     type="number"
-    name="income"
+    name="earning_months"
+    placeholder="12"
+    min="0"
     required>
 
 </div>
@@ -1540,13 +1660,28 @@ Monthly Income
 <div class="form-group">
 
 <label>
-Monthly Expenses
+    Simulation Period
 </label>
 
-<input
-    type="number"
-    name="expenses"
-    required>
+<select name="months">
+
+<option value="3">
+    3 Months
+</option>
+
+<option value="6" selected>
+    6 Months
+</option>
+
+<option value="12">
+    12 Months
+</option>
+
+<option value="24">
+    24 Months
+</option>
+
+</select>
 
 </div>
 
@@ -1554,16 +1689,49 @@ Monthly Expenses
 <div class="form-group">
 
 <label>
-Simulation Period
+    🎯 Investment Goal
 </label>
 
-<input
-    type="number"
-    name="months"
-    min="1"
-    max="60"
-    value="6"
-    required>
+<select name="investment_goal">
+
+<option value="short">
+    Short Term
+</option>
+
+<option value="medium">
+    Medium Term
+</option>
+
+<option value="long" selected>
+    Long Term
+</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+    ⚠️ Investment Risk Preference
+</label>
+
+<select name="investment_risk">
+
+<option value="low">
+    Low Risk
+</option>
+
+<option value="medium" selected>
+    Medium Risk
+</option>
+
+<option value="high">
+    High Risk
+</option>
+
+</select>
 
 </div>
 
@@ -1583,23 +1751,23 @@ Simulation Period
 {% endif %}
 
 
-<!-- =====================================
+<!-- =====================================================
      COMPARE RESULT
-     ===================================== -->
+===================================================== -->
 
 {% if page == "compare_result" %}
 
-
 <h1 class="title">
-🏆 Comparison Result
+    🏆 Comparison Result
 </h1>
 
 
 <p class="subtitle">
 
-Simulation period:
+Simulation Period:
+
 <strong>
-{{ months }} months
+    {{ months }} months
 </strong>
 
 </p>
@@ -1608,36 +1776,38 @@ Simulation period:
 <div class="winner">
 
 <h2>
-🏆 Best Option
+    🏆 Best Option
 </h2>
 
 
 <div class="winner-name">
+
 {{ best_option.name }}
+
 </div>
 
 
-<p style="color:white">
-Projected Savings
+<p style="color:white;">
+    Projected Savings
 </p>
 
 
 <div class="winner-money">
 
-₹{{ "{:,.2f}".format(best_option.value) }}
+₹{{ "{:,.2f}".format(
+    best_option.value
+) }}
 
 </div>
 
 
-<p style="color:white">
+<p style="color:white;">
 
 Risk:
 
 <strong>
-{{ best_option.risk }}
+    {{ best_option.risk }}
 </strong>
-
-&nbsp;
 
 ({{ best_option.risk_score }}/100)
 
@@ -1648,34 +1818,21 @@ Risk:
 
 <div class="card table-card">
 
-
 <table>
 
 <tr>
 
-<th>
-Rank
-</th>
+<th>Rank</th>
 
-<th>
-Option
-</th>
+<th>Option</th>
 
-<th>
-Cost
-</th>
+<th>Cost</th>
 
-<th>
-Projected Savings
-</th>
+<th>Projected Savings</th>
 
-<th>
-Risk
-</th>
+<th>Risk</th>
 
-<th>
-Risk Score
-</th>
+<th>Risk Score</th>
 
 </tr>
 
@@ -1688,41 +1845,38 @@ Risk Score
 
 {% if loop.index == 1 %}
 🥇
-
 {% elif loop.index == 2 %}
 🥈
-
 {% else %}
 🥉
 {% endif %}
 
 </td>
 
-
 <td>
 <strong>
-{{ option.name }}
+    {{ option.name }}
 </strong>
 </td>
 
-
 <td>
-₹{{ "{:,.0f}".format(option.cost) }}
+₹{{ "{:,.0f}".format(
+    option.cost
+) }}
 </td>
 
-
 <td>
-₹{{ "{:,.2f}".format(option.value) }}
+₹{{ "{:,.2f}".format(
+    option.value
+) }}
 </td>
 
-
 <td>
-{{ option.risk }}
+    {{ option.risk }}
 </td>
 
-
 <td>
-{{ option.risk_score }}/100
+    {{ option.risk_score }}/100
 </td>
 
 </tr>
@@ -1737,15 +1891,277 @@ Risk Score
 <div class="nav">
 
 <a href="/compare">
-🔄 Compare Again
+    🔄 Compare Again
 </a>
 
 <a href="/history">
-📊 History
+    📊 History
 </a>
 
 <a href="/">
-🏠 Home
+    🏠 Home
+</a>
+
+<a href="/investments">
+    💰 Investments
+</a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- =====================================================
+     INVESTMENTS PAGE
+===================================================== -->
+
+{% if page == "investments" %}
+
+
+<h1 class="title">
+    💰 Investment Plans
+</h1>
+
+<p class="subtitle">
+    See how your 10% investment grows across different plans.
+</p>
+
+
+<div class="card form-card">
+
+<h2>
+    💼 Enter Your Details
+</h2>
+
+
+<form action="/investments" method="POST">
+
+
+<div class="form-group">
+
+<label>
+Monthly Salary (₹)
+</label>
+
+<input
+    type="number"
+    name="salary"
+    placeholder="50000"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Simulation Period (months)
+</label>
+
+<select name="months">
+
+<option value="6">6 Months</option>
+<option value="12" selected>12 Months</option>
+<option value="24">24 Months</option>
+<option value="36">36 Months</option>
+<option value="60">60 Months</option>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Custom Annual Return % (optional)
+</label>
+
+<input
+    type="number"
+    name="custom_return"
+    step="0.1"
+    placeholder="e.g. 14">
+
+<p style="color:#64748b;font-size:14px;margin-top:5px;">
+Leave blank to skip. Enter a value to add your own investment plan.
+</p>
+
+</div>
+
+
+<button type="submit">
+🔍 SHOW INVESTMENT PLANS
+</button>
+
+
+</form>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- =====================================================
+     INVESTMENT RESULT PAGE
+===================================================== -->
+
+{% if page == "investment_result" %}
+
+
+<h1 class="title">
+    💰 Investment Plans Result
+</h1>
+
+
+<div class="info">
+
+Monthly Investment (10% of salary):
+<strong>₹{{ "{:,.0f}".format(result.monthly_investment) }}</strong>
+
+&nbsp;&nbsp; | &nbsp;&nbsp;
+
+Period:
+<strong>{{ months }} months</strong>
+
+</div>
+
+
+{% for plan in result.plans %}
+
+<div class="card" style="max-width:900px;margin:20px auto;">
+
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+
+<div>
+
+<h2 style="margin:0;color:#1e3a8a;">
+{{ plan.full_name }}
+</h2>
+
+<p style="margin:4px 0 0;color:#64748b;">
+{{ plan.description }}
+</p>
+
+</div>
+
+<div style="text-align:right;">
+
+<div style="font-size:28px;font-weight:900;color:#16a34a;">
+₹{{ "{:,.0f}".format(plan.projected_value) }}
+</div>
+
+<div style="color:#64748b;font-size:14px;">
+Projected Value
+</div>
+
+</div>
+
+</div>
+
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-top:20px;padding-top:20px;border-top:1px solid #e5e7eb;">
+
+<div>
+<div style="color:#64748b;font-size:13px;">Annual Return</div>
+<div style="font-weight:bold;font-size:18px;">{{ plan.annual_return }}%</div>
+</div>
+
+<div>
+<div style="color:#64748b;font-size:13px;">Risk Level</div>
+<div style="font-weight:bold;font-size:18px;color:{% if plan.risk_level == 'Low' %}#16a34a{% elif plan.risk_level == 'Medium' %}#d97706{% else %}#dc2626{% endif %};">
+{{ plan.risk_level }}
+</div>
+</div>
+
+<div>
+<div style="color:#64748b;font-size:13px;">Total Invested</div>
+<div style="font-weight:bold;font-size:18px;">₹{{ "{:,.0f}".format(plan.total_invested) }}</div>
+</div>
+
+<div>
+<div style="color:#64748b;font-size:13px;">Total Returns</div>
+<div style="font-weight:bold;font-size:18px;color:#16a34a;">
++₹{{ "{:,.0f}".format(plan.total_returns) }}
+</div>
+</div>
+
+<div>
+<div style="color:#64748b;font-size:13px;">Lock-in Period</div>
+<div style="font-weight:bold;font-size:18px;">{{ plan.lock_in }}</div>
+</div>
+
+<div>
+<div style="color:#64748b;font-size:13px;">Min. Investment</div>
+<div style="font-weight:bold;font-size:18px;">₹{{ "{:,.0f}".format(plan.min_amount) }}</div>
+</div>
+
+</div>
+
+</div>
+
+{% endfor %}
+
+
+<div class="card" style="max-width:900px;margin:20px auto;background:#eff6ff;border:2px solid #bfdbfe;">
+
+<h2 style="margin-top:0;color:#1e3a8a;">
+    💡 How It Works
+</h2>
+
+<p>
+    The 60-30-10 rule allocates <strong>10% of your salary</strong>
+    (₹{{ "{:,.0f}".format(result.monthly_investment) }}/month) to investments.
+    The projections above show compound growth for each plan over
+    <strong>{{ months }} months</strong>.
+</p>
+
+<ul style="line-height:1.8;">
+
+<li>
+<strong>PPF & FD:</strong> Safe, guaranteed returns — ideal for capital preservation.
+</li>
+
+<li>
+<strong>Gold:</strong> Hedge against inflation with moderate returns.
+</li>
+
+<li>
+<strong>SIP:</strong> Diversified mutual fund investing — good balance of risk and growth.
+</li>
+
+<li>
+<strong>Stocks:</strong> Highest potential returns but also highest risk.
+</li>
+
+<li>
+<strong>NPS:</strong> Government pension scheme with tax benefits.
+</li>
+
+</ul>
+
+<p style="color:#64748b;font-size:14px;">
+    This is an educational projection only. Actual returns may vary.
+    Consult a financial advisor before investing.
+</p>
+
+</div>
+
+
+<div class="nav">
+
+<a href="/investments">
+    🔄 Try Again
+</a>
+
+<a href="/">
+    🏠 Home
+</a>
+
+<a href="/compare">
+    ⚖️ Compare
 </a>
 
 </div>

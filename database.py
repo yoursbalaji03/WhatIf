@@ -1,7 +1,7 @@
 import os
 import sqlite3
 
-DATABASE = os.path.join("/tmp", "whatif.db")
+DATABASE = os.path.join(os.path.dirname(__file__), "whatif.db")
 
 
 def create_database():
