@@ -1,189 +1,1758 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    <title>What If? - Decision Simulator</title>
+<title>WHAT IF? Decision Simulator</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+/* ======================================
+   GLOBAL
+   ====================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eff6ff,
+            #dbeafe
+        );
+
+    color: #111827;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+.container {
+
+    width: 92%;
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding:
+        40px
+        0
+        70px;
+}
+
+
+/* ======================================
+   HEADER
+   ====================================== */
+
+.logo {
+
+    text-align: center;
+
+    font-size: 52px;
+
+    font-weight: 900;
+
+    color: #2563eb;
+
+    letter-spacing: 2px;
+}
+
+
+.logo span {
+
+    color: #60a5fa;
+}
+
+
+.title {
+
+    text-align: center;
+
+    font-size: 44px;
+
+    margin:
+        8px
+        0
+        10px;
+}
+
+
+.subtitle {
+
+    text-align: center;
+
+    color: #475569;
+
+    font-size: 18px;
+}
+
+
+/* ======================================
+   NAVIGATION
+   ====================================== */
+
+.nav {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin:
+        25px
+        0;
+}
+
+
+.nav a {
+
+    padding:
+        12px
+        20px;
+
+    background: white;
+
+    color: #2563eb;
+
+    border-radius: 10px;
+
+    border:
+        1px solid
+        #bfdbfe;
+
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+
+.nav a:hover {
+
+    background: #2563eb;
+
+    color: white;
+}
+
+
+/* ======================================
+   CARD
+   ====================================== */
+
+.card {
+
+    background: white;
+
+    border-radius: 22px;
+
+    padding: 30px;
+
+    margin:
+        30px
+        auto;
+
+    box-shadow:
+        0 15px 40px
+        rgba(37,99,235,.15);
+
+    border:
+        1px solid
+        #dbeafe;
+}
+
+
+/* ======================================
+   FORM
+   ====================================== */
+
+.form-card {
+
+    max-width: 750px;
+}
+
+
+.form-card h2 {
+
+    text-align: center;
+
+    color: #1e3a8a;
+
+    margin-top: 0;
+}
+
+
+.form-group {
+
+    margin-bottom: 20px;
+}
+
+
+label {
+
+    display: block;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+
+input,
+select {
+
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+        2px solid
+        #dbeafe;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    color: #111827;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+input:focus,
+select:focus {
+
+    border-color: #2563eb;
+
+    background: white;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(37,99,235,.12);
+}
+
+
+button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(37,99,235,.3);
+}
+
+
+/* ======================================
+   RESULT HEADER
+   ====================================== */
+
+.info {
+
+    text-align: center;
+
+    font-size: 19px;
+
+    margin-bottom: 20px;
+}
+
+
+.info strong {
+
+    color: #2563eb;
+}
+
+
+/* ======================================
+   BLUE RESULT CARD
+   ====================================== */
+
+.result-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #60a5fa,
+            #2563eb
+        );
+
+    border-radius: 25px;
+
+    padding: 30px;
+
+    color: #000;
+
+    box-shadow:
+        0 20px 45px
+        rgba(37,99,235,.3);
+}
+
+
+.result-icon {
+
+    font-size: 45px;
+
+    margin-bottom: 10px;
+}
+
+
+.result-row {
+
+    display: grid;
+
+    grid-template-columns:
+        75px
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding:
+        22px
+        0;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.6);
+}
+
+
+.case-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+
+.best {
+
+    background: #bbf7d0;
+
+    color: #15803d;
+}
+
+
+.normal {
+
+    background: #dbeafe;
+
+    color: #1d4ed8;
+}
+
+
+.worst {
+
+    background: #fecaca;
+
+    color: #dc2626;
+}
+
+
+.case-info h2 {
+
+    margin: 0;
+
+    color: #000;
+}
+
+
+.case-info p {
+
+    margin: 5px 0;
+
+    color: #111827;
+}
+
+
+.money {
+
+    padding:
+        14px
+        22px;
+
+    border-radius: 12px;
+
+    font-size: 26px;
+
+    font-weight: 900;
+
+    min-width: 180px;
+
+    text-align: center;
+
+    color: #000;
+}
+
+
+/* ======================================
+   RISK
+   ====================================== */
+
+.risk {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding-top: 20px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.6);
+}
+
+
+.risk-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fef08a;
+
+    color: #dc2626;
+
+    font-size: 35px;
+
+    font-weight: bold;
+}
+
+
+.risk h2 {
+
+    margin: 0;
+
+    color: #000;
+}
+
+
+.risk p {
+
+    margin: 5px 0;
+
+    color: #111827;
+}
+
+
+.risk strong {
+
+    color: #dc2626;
+}
+
+
+/* ======================================
+   RECOMMENDATION
+   ====================================== */
+
+.recommendation {
+
+    max-width: 900px;
+
+    margin:
+        25px
+        auto;
+
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    border:
+        2px solid
+        #bfdbfe;
+
+    box-shadow:
+        0 12px 30px
+        rgba(37,99,235,.15);
+}
+
+
+.recommendation h2 {
+
+    margin-top: 0;
+}
+
+
+.recommendation-result {
+
+    font-size: 32px;
+
+    font-weight: 900;
+
+    margin:
+        10px
+        0;
+}
+
+
+.buy {
+
+    color: #16a34a;
+}
+
+
+.wait {
+
+    color: #d97706;
+}
+
+
+/* ======================================
+   WHY
+   ====================================== */
+
+.why {
+
+    max-width: 900px;
+
+    margin:
+        25px
+        auto;
+}
+
+
+.why h2 {
+
+    color: #1e3a8a;
+}
+
+
+.why p {
+
+    line-height: 1.6;
+
+    color: #374151;
+}
+
+
+.why li {
+
+    margin:
+        10px
+        0;
+
+    color: #111827;
+}
+
+
+/* ======================================
+   HISTORY TABLE
+   ====================================== */
+
+.table-card {
+
+    overflow-x: auto;
+
+    padding: 0;
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: white;
+}
+
+
+th {
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: white;
+
+    padding: 15px;
+}
+
+
+td {
+
+    padding: 14px;
+
+    text-align: center;
+
+    border-bottom:
+        1px solid
+        #e5e7eb;
+
+    color: #111827;
+}
+
+
+tr:hover {
+
+    background: #eff6ff;
+}
+
+
+/* ======================================
+   COMPARE
+   ====================================== */
+
+.option {
+
+    padding: 25px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    margin-bottom: 20px;
+
+    border:
+        1px solid
+        #dbeafe;
+
+    box-shadow:
+        0 10px 25px
+        rgba(37,99,235,.1);
+}
+
+
+.option h2 {
+
+    color: #1d4ed8;
+
+    margin-top: 0;
+}
+
+
+/* ======================================
+   WINNER
+   ====================================== */
+
+.winner {
+
+    text-align: center;
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #60a5fa,
+            #2563eb
+        );
+
+    border-radius: 25px;
+
+    color: white;
+
+    box-shadow:
+        0 20px 40px
+        rgba(37,99,235,.25);
+}
+
+
+.winner h2 {
+
+    font-size: 30px;
+}
+
+
+.winner-name {
+
+    font-size: 42px;
+
+    font-weight: 900;
+}
+
+
+.winner-money {
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+
+/* ======================================
+   MOBILE
+   ====================================== */
+
+@media(max-width:750px) {
+
+    .container {
+
+        width: 94%;
+    }
+
+    .logo {
+
+        font-size: 38px;
+    }
+
+    .title {
+
+        font-size: 34px;
+    }
+
+    .result-row {
+
+        grid-template-columns:
+            60px
+            1fr;
+    }
+
+    .money {
+
+        grid-column: 2;
+
+        min-width: 0;
+    }
+
+    .risk {
+
+        align-items: flex-start;
+    }
+
+}
+
+</style>
 
 </head>
 
+
 <body>
 
-<div class="page">
 
-    <div class="logo">
-        WHAT IF? <span>—</span>
-    </div>
-
-    <h1 class="page-title">
-        Decision Simulator
-    </h1>
-
-    <p class="subtitle">
-        Explore different possible outcomes before making a decision.
-    </p>
+<div class="container">
 
 
-    <div class="card home-card">
+<!-- =====================================
+     NAVIGATION
+     ===================================== -->
 
-        <h2>💭 What are you deciding about?</h2>
-
-
-        <form action="/simulate" method="POST">
-
-
-            <div class="form-group">
-
-                <label>
-                    Decision
-                </label>
-
-                <input
-                    type="text"
-                    name="decision"
-                    placeholder="Example: Buy a laptop"
-                    required
-                >
-
-            </div>
+<div class="logo">
+    WHAT IF? <span>—</span>
+</div>
 
 
-            <div class="form-group">
+{% if page != "home" %}
 
-                <label>
-                    Current Savings (₹)
-                </label>
+<div class="nav">
 
-                <input
-                    type="number"
-                    name="savings"
-                    placeholder="50000"
-                    min="0"
-                    required
-                >
+    <a href="/">
+        🏠 Home
+    </a>
 
-            </div>
+    <a href="/history">
+        📊 History
+    </a>
 
+    <a href="/compare">
+        ⚖️ Compare
+    </a>
 
-            <div class="form-group">
+</div>
 
-                <label>
-                    Monthly Income (₹)
-                </label>
-
-                <input
-                    type="number"
-                    name="income"
-                    placeholder="20000"
-                    min="0"
-                    required
-                >
-
-            </div>
+{% endif %}
 
 
-            <div class="form-group">
+<!-- =====================================
+     HOME
+     ===================================== -->
 
-                <label>
-                    Monthly Expenses (₹)
-                </label>
-
-                <input
-                    type="number"
-                    name="expenses"
-                    placeholder="12000"
-                    min="0"
-                    required
-                >
-
-            </div>
+{% if page == "home" %}
 
 
-            <div class="form-group">
+<h1 class="title">
+    Decision Simulator
+</h1>
 
-                <label>
-                    Decision Cost (₹)
-                </label>
-
-                <input
-                    type="number"
-                    name="cost"
-                    placeholder="70000"
-                    min="0"
-                    required
-                >
-
-            </div>
+<p class="subtitle">
+    Explore possible outcomes before making a decision.
+</p>
 
 
-            <div class="form-group">
+<div class="card form-card">
 
-                <label>
-                    Simulation Period
-                </label>
-
-                <select name="months" required>
-
-                    <option value="3">
-                        3 Months
-                    </option>
-
-                    <option value="6">
-                        6 Months
-                    </option>
-
-                    <option value="12">
-                        12 Months
-                    </option>
-
-                    <option value="24">
-                        24 Months
-                    </option>
-
-                </select>
-
-            </div>
+<h2>
+    💭 What are you deciding about?
+</h2>
 
 
-            <button
-                type="submit"
-                class="primary-button">
-
-                🚀 SIMULATE DECISION
-
-            </button>
-
-        </form>
-
-    </div>
+<form action="/simulate" method="POST">
 
 
-    <div class="home-links">
+<div class="form-group">
 
-        <a
-            href="/history"
-            class="nav-button">
+<label>
+Decision
+</label>
 
-            📊 Simulation History
+<input
+    type="text"
+    name="decision"
+    placeholder="Example: Buy a laptop"
+    required>
 
-        </a>
+</div>
 
-        <a
-            href="/compare"
-            class="nav-button">
 
-            ⚖️ Compare Decisions
+<div class="form-group">
 
-        </a>
+<label>
+Current Savings (₹)
+</label>
 
-    </div>
+<input
+    type="number"
+    name="savings"
+    placeholder="30000"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Monthly Income (₹)
+</label>
+
+<input
+    type="number"
+    name="income"
+    placeholder="20000"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Monthly Expenses (₹)
+</label>
+
+<input
+    type="number"
+    name="expenses"
+    placeholder="10000"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Decision Cost (₹)
+</label>
+
+<input
+    type="number"
+    name="cost"
+    placeholder="70000"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Simulation Period
+</label>
+
+<select name="months">
+
+<option value="3">
+3 Months
+</option>
+
+<option value="6">
+6 Months
+</option>
+
+<option value="12">
+12 Months
+</option>
+
+<option value="24">
+24 Months
+</option>
+
+</select>
+
+</div>
+
+
+<button type="submit">
+🚀 SIMULATE DECISION
+</button>
+
+
+</form>
+
+</div>
+
+
+<div class="nav">
+
+<a href="/history">
+📊 Simulation History
+</a>
+
+<a href="/compare">
+⚖️ Compare Decisions
+</a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- =====================================
+     RESULT
+     ===================================== -->
+
+{% if page == "result" %}
+
+
+<h1 class="title">
+Simulation Result
+</h1>
+
+
+<div class="info">
+
+Decision:
+<strong>{{ decision }}</strong>
+
+&nbsp;&nbsp; | &nbsp;&nbsp;
+
+Period:
+<strong>{{ months }} months</strong>
+
+</div>
+
+
+<div class="result-card">
+
+
+<div class="result-icon">
+🛒
+</div>
+
+
+<!-- BEST -->
+
+<div class="result-row">
+
+<div class="case-icon best">
+↗
+</div>
+
+<div class="case-info">
+
+<h2>
+Best Case
+</h2>
+
+<p>
+You will have
+</p>
+
+</div>
+
+<div class="money best">
+
+₹{{ "{:,.2f}".format(results["buy_now"]["best"]) }}
+
+</div>
+
+</div>
+
+
+<!-- NORMAL -->
+
+<div class="result-row">
+
+<div class="case-icon normal">
+=
+</div>
+
+<div class="case-info">
+
+<h2>
+Normal Case
+</h2>
+
+<p>
+You will have
+</p>
+
+</div>
+
+<div class="money normal">
+
+₹{{ "{:,.2f}".format(results["buy_now"]["normal"]) }}
+
+</div>
+
+</div>
+
+
+<!-- WORST -->
+
+<div class="result-row">
+
+<div class="case-icon worst">
+↘
+</div>
+
+<div class="case-info">
+
+<h2>
+Worst Case
+</h2>
+
+<p>
+You will have
+</p>
+
+</div>
+
+<div class="money worst">
+
+₹{{ "{:,.2f}".format(results["buy_now"]["worst"]) }}
+
+</div>
+
+</div>
+
+
+<!-- RISK -->
+
+<div class="risk">
+
+<div class="risk-icon">
+!
+</div>
+
+<div>
+
+<h2>
+
+Risk:
+<strong>
+{{ results["buy_now"]["risk"] }}
+</strong>
+
+</h2>
+
+<p>
+
+Risk Score:
+
+<strong>
+{{ results["buy_now"]["risk_score"] }}
+/ 100
+</strong>
+
+</p>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<!-- RECOMMENDATION -->
+
+<div class="recommendation">
+
+<h2>
+🧠 Our Recommendation
+</h2>
+
+
+<div class="recommendation-result">
+
+{% if results["recommendation"] == "BUY NOW" %}
+
+<span class="buy">
+🟢 BUY NOW
+</span>
+
+{% else %}
+
+<span class="wait">
+🟡 WAIT
+</span>
+
+{% endif %}
+
+</div>
+
+
+<p>
+Based on your financial situation and simulated outcomes.
+</p>
+
+</div>
+
+
+<!-- WHY -->
+
+<div class="card why">
+
+<h2>
+🔍 Why this recommendation?
+</h2>
+
+
+<p>
+{{ results["explanation"] }}
+</p>
+
+
+<ul>
+
+{% for reason in results["reasons"] %}
+
+<li>
+{{ reason }}
+</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+
+<div class="nav">
+
+<a href="/">
+🏠 New Simulation
+</a>
+
+<a href="/history">
+📊 History
+</a>
+
+<a href="/compare">
+⚖️ Compare
+</a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- =====================================
+     HISTORY
+     ===================================== -->
+
+{% if page == "history" %}
+
+
+<h1 class="title">
+📊 Simulation History
+</h1>
+
+
+<p class="subtitle">
+Your previous simulations
+</p>
+
+
+<div class="card table-card">
+
+
+{% if simulations %}
+
+
+<table>
+
+<tr>
+
+<th>
+ID
+</th>
+
+<th>
+Decision
+</th>
+
+<th>
+Savings
+</th>
+
+<th>
+Income
+</th>
+
+<th>
+Expenses
+</th>
+
+<th>
+Cost
+</th>
+
+<th>
+Months
+</th>
+
+</tr>
+
+
+{% for simulation in simulations %}
+
+<tr>
+
+<td>
+{{ simulation["id"] }}
+</td>
+
+<td>
+{{ simulation["decision"] }}
+</td>
+
+<td>
+₹{{ "{:,.0f}".format(simulation["savings"]) }}
+</td>
+
+<td>
+₹{{ "{:,.0f}".format(simulation["income"]) }}
+</td>
+
+<td>
+₹{{ "{:,.0f}".format(simulation["expenses"]) }}
+</td>
+
+<td>
+₹{{ "{:,.0f}".format(simulation["cost"]) }}
+</td>
+
+<td>
+{{ simulation["months"] }}
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+
+{% else %}
+
+<div style="text-align:center;padding:40px">
+
+<h2>
+No simulations yet
+</h2>
+
+<p>
+Run your first simulation.
+</p>
+
+</div>
+
+{% endif %}
+
+
+</div>
+
+
+<div class="nav">
+
+<a href="/">
+🏠 New Simulation
+</a>
+
+<a href="/compare">
+⚖️ Compare
+</a>
+
+</div>
+
+
+{% endif %}
+
+
+<!-- =====================================
+     COMPARE
+     ===================================== -->
+
+{% if page == "compare" %}
+
+
+<h1 class="title">
+⚖️ Compare Decisions
+</h1>
+
+
+<p class="subtitle">
+Compare three choices and find the better option.
+</p>
+
+
+<form action="/compare" method="POST">
+
+
+<div class="option">
+
+<h2>
+Option 1
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Decision Name
+</label>
+
+<input
+    type="text"
+    name="decision1"
+    placeholder="iPhone"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Cost (₹)
+</label>
+
+<input
+    type="number"
+    name="cost1"
+    placeholder="70000"
+    required>
+
+</div>
+
+</div>
+
+
+<div class="option">
+
+<h2>
+Option 2
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Decision Name
+</label>
+
+<input
+    type="text"
+    name="decision2"
+    placeholder="Google Pixel"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Cost (₹)
+</label>
+
+<input
+    type="number"
+    name="cost2"
+    placeholder="50000"
+    required>
+
+</div>
+
+</div>
+
+
+<div class="option">
+
+<h2>
+Option 3
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Decision Name
+</label>
+
+<input
+    type="text"
+    name="decision3"
+    placeholder="iQOO"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Cost (₹)
+</label>
+
+<input
+    type="number"
+    name="cost3"
+    placeholder="30000"
+    required>
+
+</div>
+
+</div>
+
+
+<div class="option">
+
+<h2>
+💰 Financial Details
+</h2>
+
+
+<div class="form-group">
+
+<label>
+Current Savings
+</label>
+
+<input
+    type="number"
+    name="savings"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Monthly Income
+</label>
+
+<input
+    type="number"
+    name="income"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Monthly Expenses
+</label>
+
+<input
+    type="number"
+    name="expenses"
+    required>
+
+</div>
+
+
+<div class="form-group">
+
+<label>
+Simulation Period
+</label>
+
+<input
+    type="number"
+    name="months"
+    min="1"
+    max="60"
+    value="6"
+    required>
+
+</div>
+
+</div>
+
+
+<button type="submit">
+
+🔍 COMPARE DECISIONS
+
+</button>
+
+
+</form>
+
+
+{% endif %}
+
+
+<!-- =====================================
+     COMPARE RESULT
+     ===================================== -->
+
+{% if page == "compare_result" %}
+
+
+<h1 class="title">
+🏆 Comparison Result
+</h1>
+
+
+<p class="subtitle">
+
+Simulation period:
+<strong>
+{{ months }} months
+</strong>
+
+</p>
+
+
+<div class="winner">
+
+<h2>
+🏆 Best Option
+</h2>
+
+
+<div class="winner-name">
+{{ best_option.name }}
+</div>
+
+
+<p style="color:white">
+Projected Savings
+</p>
+
+
+<div class="winner-money">
+
+₹{{ "{:,.2f}".format(best_option.value) }}
+
+</div>
+
+
+<p style="color:white">
+
+Risk:
+
+<strong>
+{{ best_option.risk }}
+</strong>
+
+&nbsp;
+
+({{ best_option.risk_score }}/100)
+
+</p>
+
+</div>
+
+
+<div class="card table-card">
+
+
+<table>
+
+<tr>
+
+<th>
+Rank
+</th>
+
+<th>
+Option
+</th>
+
+<th>
+Cost
+</th>
+
+<th>
+Projected Savings
+</th>
+
+<th>
+Risk
+</th>
+
+<th>
+Risk Score
+</th>
+
+</tr>
+
+
+{% for option in options %}
+
+<tr>
+
+<td>
+
+{% if loop.index == 1 %}
+🥇
+
+{% elif loop.index == 2 %}
+🥈
+
+{% else %}
+🥉
+{% endif %}
+
+</td>
+
+
+<td>
+<strong>
+{{ option.name }}
+</strong>
+</td>
+
+
+<td>
+₹{{ "{:,.0f}".format(option.cost) }}
+</td>
+
+
+<td>
+₹{{ "{:,.2f}".format(option.value) }}
+</td>
+
+
+<td>
+{{ option.risk }}
+</td>
+
+
+<td>
+{{ option.risk_score }}/100
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+
+<div class="nav">
+
+<a href="/compare">
+🔄 Compare Again
+</a>
+
+<a href="/history">
+📊 History
+</a>
+
+<a href="/">
+🏠 Home
+</a>
+
+</div>
+
+
+{% endif %}
+
 
 </div>
 

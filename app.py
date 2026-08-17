@@ -16,7 +16,11 @@ create_database()
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+
+    return render_template(
+        "index.html",
+        page="home"
+    )
 
 
 @app.route("/simulate", methods=["POST"])
@@ -31,6 +35,7 @@ def simulate():
 
     months = int(request.form["months"])
 
+
     results = calculate_scenarios(
         savings,
         income,
@@ -38,6 +43,9 @@ def simulate():
         cost,
         months
     )
+
+
+    # Save simulation
 
     save_simulation(
         decision,
@@ -49,10 +57,16 @@ def simulate():
         results["recommendation"]
     )
 
+
     return render_template(
-        "result.html",
+        "index.html",
+
+        page="result",
+
         decision=decision,
+
         months=months,
+
         results=results
     )
 
@@ -63,41 +77,41 @@ def history():
     simulations = get_simulations()
 
     return render_template(
-        "history.html",
+        "index.html",
+
+        page="history",
+
         simulations=simulations
     )
 
-
-# -----------------------------------------
-# COMPARE DECISIONS
-# -----------------------------------------
 
 @app.route("/compare", methods=["GET", "POST"])
 def compare():
 
     if request.method == "GET":
 
-        return render_template("compare.html")
+        return render_template(
+            "index.html",
+            page="compare"
+        )
 
 
-    # Option names
     decision1 = request.form["decision1"]
     decision2 = request.form["decision2"]
     decision3 = request.form["decision3"]
 
-    # Option costs
+
     cost1 = float(request.form["cost1"])
     cost2 = float(request.form["cost2"])
     cost3 = float(request.form["cost3"])
 
-    # Common financial details
+
     savings = float(request.form["savings"])
     income = float(request.form["income"])
     expenses = float(request.form["expenses"])
+
     months = int(request.form["months"])
 
-
-    # Calculate Option 1
 
     result1 = calculate_scenarios(
         savings,
@@ -107,9 +121,6 @@ def compare():
         months
     )
 
-
-    # Calculate Option 2
-
     result2 = calculate_scenarios(
         savings,
         income,
@@ -117,9 +128,6 @@ def compare():
         cost2,
         months
     )
-
-
-    # Calculate Option 3
 
     result3 = calculate_scenarios(
         savings,
@@ -130,41 +138,37 @@ def compare():
     )
 
 
-    # Get normal-case BUY NOW result
-
-    option1_value = result1["buy_now"]["normal"]
-    option2_value = result2["buy_now"]["normal"]
-    option3_value = result3["buy_now"]["normal"]
-
-
     options = [
+
         {
             "name": decision1,
             "cost": cost1,
-            "value": option1_value,
-            "risk": result1["buy_now"]["risk"]
+            "value": result1["buy_now"]["normal"],
+            "risk": result1["buy_now"]["risk"],
+            "risk_score": result1["buy_now"]["risk_score"]
         },
 
         {
             "name": decision2,
             "cost": cost2,
-            "value": option2_value,
-            "risk": result2["buy_now"]["risk"]
+            "value": result2["buy_now"]["normal"],
+            "risk": result2["buy_now"]["risk"],
+            "risk_score": result2["buy_now"]["risk_score"]
         },
 
         {
             "name": decision3,
             "cost": cost3,
-            "value": option3_value,
-            "risk": result3["buy_now"]["risk"]
+            "value": result3["buy_now"]["normal"],
+            "risk": result3["buy_now"]["risk"],
+            "risk_score": result3["buy_now"]["risk_score"]
         }
+
     ]
 
 
-    # Sort from highest final savings to lowest
-
     options.sort(
-        key=lambda option: option["value"],
+        key=lambda x: x["value"],
         reverse=True
     )
 
@@ -173,12 +177,18 @@ def compare():
 
 
     return render_template(
-        "compare_result.html",
+        "index.html",
+
+        page="compare_result",
+
         options=options,
+
         best_option=best_option,
+
         months=months
     )
 
 
 if __name__ == "__main__":
+
     app.run(debug=True)
